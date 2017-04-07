@@ -16,7 +16,7 @@ tasks.withType(JavaCompile) {
 
 repositories {
         
-     maven { url "http://repo.maven.apache.org/maven2" }
+     maven { url "http://54.89.170.23:8081/nexus/content/repositories/central/" }
 }
 dependencies {
     testCompile group: 'junit', name: 'junit', version:'3.8.1'
