@@ -1,12 +1,12 @@
 allprojects  {
   apply plugin: 'maven'
-
   group = 'com.cts'
 version = '1.0-SNAPSHOT'
 }
 
 subprojects {
   apply plugin: 'java'
+  apply plugin: 'jacoco'
   sourceCompatibility = 1.5
   targetCompatibility = 1.5
 
@@ -15,12 +15,15 @@ subprojects {
 	exclude '**/*IT*'
 }
   repositories {
-    mavenLocal()
+    // mavenLocal()
     
     maven { url "http://54.89.170.23:8081/nexus/content/repositories/central/" }
   }
+jacocoTestReport { 
+     reports { 
+       xml.enabled true 
+         html.enabled false     } 
 
-  
-  
-  
+     
+		}
 }
