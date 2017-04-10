@@ -1,23 +1,26 @@
-apply plugin: 'java'
-apply plugin: 'maven'
+allprojects  {
+  apply plugin: 'maven'
 
-group = 'com.codingpractice'
+  group = 'com.cts'
 version = '1.0-SNAPSHOT'
-
-description = "Java-Project"
-
-sourceCompatibility = 1.5
-targetCompatibility = 1.5
-tasks.withType(JavaCompile) {
-	options.encoding = 'UTF-8'
 }
 
+subprojects {
+  apply plugin: 'java'
+  sourceCompatibility = 1.5
+  targetCompatibility = 1.5
 
-
-repositories {
-        
-     maven { url "http://54.89.170.23:8081/nexus/content/repositories/central/" }
+  test {
+	ignoreFailures = true
+	exclude '**/*IT*'
 }
-dependencies {
-    testCompile group: 'junit', name: 'junit', version:'3.8.1'
+  repositories {
+    mavenLocal()
+    
+    maven { url "http://54.89.170.23:8081/nexus/content/repositories/central/" }
+  }
+
+  
+  
+  
 }

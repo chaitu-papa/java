@@ -1,1 +1,6 @@
-rootProject.name = 'Java-HelloWorld'
+rootProject.name = 'HelloWorld-Web'
+include ':HelloWorld-App'
+include ':HelloWorld'
+
+project(':HelloWorld-App').projectDir = "$rootDir/HelloWorld-App" as File
+project(':HelloWorld').projectDir = "$rootDir/Helloworld" as File
