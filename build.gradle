@@ -7,16 +7,15 @@ version = '1.0-SNAPSHOT'
 subprojects {
   apply plugin: 'java'
   apply plugin: 'jacoco'
-  sourceCompatibility = 1.5
-  targetCompatibility = 1.5
+  sourceCompatibility = 1.7
+  targetCompatibility = 1.7
 
   test {
 	ignoreFailures = true
 	exclude '**/*IT*'
 }
   repositories {
-    // mavenLocal()
-    
+      
     maven { url "http://54.89.170.23:8081/nexus/content/repositories/central/" }
   }
 jacocoTestReport { 
