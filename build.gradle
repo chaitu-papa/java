@@ -1,9 +1,8 @@
 allprojects  {
 	apply plugin: 'maven'
 	group = "com.cts"
-	ext.baseVersion = "0.1" 
-	ext.snapshotVersion = System.getenv("SNAPSHOT")
-	version = "$baseVersion" + (snapshotVersion ? "-SNAPSHOT" : "") 
+	ext.baseVersion = "0.1.+ (System.getenv("SNAPSHOT") ? "" : "System.getenv("BUILD_NUMBER")")  
+	version = "$baseVersion" + (System.getenv("SNAPSHOT") ? "-SNAPSHOT" : "") 
 
 }
 
