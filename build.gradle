@@ -2,7 +2,7 @@ allprojects  {
 	apply plugin: 'maven'
 	group = "com.cts"
 	ext.baseVersion = "0.1" 
-	ext.snapshotVersion = getenv("SNAPSHOT")
+	systemProperty "snapshotVersion", System.getProperty("SNAPSHOT")
 	version = "$baseVersion" + (snapshotVersion ? "-SNAPSHOT" : "") 
 
 }
