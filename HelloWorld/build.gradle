@@ -5,3 +5,15 @@ description = ''
 dependencies {
   compile project(':HelloWorld-App')
 }
+uploadArchives {  
+    repositories {  
+        mavenDeployer {  
+            repository(url: 'http://54.89.170.23:8081/nexus/content/repositories/releases/') {  
+                authentication(userName: 'admin', password: 'admin123');  
+            }  
+            snapshotRepository(url: 'http://54.89.170.23:8081/nexus/content/repositories/snapshots/') {
+                authentication(userName: 'admin', password: 'admin123');  
+            }  
+        }  
+    }  
+}
