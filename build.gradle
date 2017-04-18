@@ -6,9 +6,8 @@ allprojects  {
 	ext.snapshotVersion =System.getenv("SNAPSHOT")
 	ext.baseversionupdate=System.getenv("BUILD_NUM")
 	
-	ext.baseVersion = "0.1"
-	//+ (snapshotVersion ? "" : "baseversionupdate" )
-	println ( snapshotVersion ? "-SNAPSHOT":"" )
+	ext.baseVersion = "0.1" + (snapshotVersion ? "" : "$baseversionupdate" )
+	// println ( snapshotVersion ? "-SNAPSHOT":"" )
 	
 	version = "$baseVersion" + (snapshotVersion ? "-SNAPSHOT" : "")  
 	
