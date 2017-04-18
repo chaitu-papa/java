@@ -1,5 +1,4 @@
 
-//HelloWorld Example
 allprojects  {
 	apply plugin: 'maven'
 	group = "com.cts"
