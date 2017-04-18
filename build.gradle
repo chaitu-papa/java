@@ -1,9 +1,17 @@
+
+//HelloWorld Example
 allprojects  {
 	apply plugin: 'maven'
 	group = "com.cts"
-	ext.baseVersion = "0.1"+ (System.getenv("SNAPSHOT") ? "" : System.getenv("BUILD_NUM"))  
-	version = "$baseVersion" + (System.getenv("SNAPSHOT") ? "-SNAPSHOT" : "") 
-
+	ext.snapshotVersion =System.getenv("SNAPSHOT")
+	ext.baseversionupdate=System.getenv("BUILD_NUM")
+	
+	ext.baseVersion = "0.1"
+	//+ (snapshotVersion ? "" : "baseversionupdate" )
+	println ( snapshotVersion ? "-SNAPSHOT":"" )
+	
+	version = "$baseVersion" + (snapshotVersion ? "-SNAPSHOT" : "")  
+	
 }
 
 subprojects {
@@ -22,9 +30,8 @@ subprojects {
   }
 jacocoTestReport { 
      reports { 
-       xml.enabled true 
-         html.enabled false     } 
-
-     
+		 xml.enabled true 
+         html.enabled false  
+		 }    
 		}
 }
