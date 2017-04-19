@@ -1,7 +1,7 @@
 
 node {
     stage('Preparation') { 
-        checkout([$class: 'GitSCM', branches: [[name: '*/helloworld']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'c7e60db1-4689-46b7-92dc-1cd7ffcc3f16', url: 'git@github.com:chaitu-papa/java.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: "*/$env.BRANCH_NAME"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'c7e60db1-4689-46b7-92dc-1cd7ffcc3f16', url: 'git@github.com:chaitu-papa/java.git']]])
    }
    stage('Build') {
       // Run the gradle build
