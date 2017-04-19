@@ -1,36 +1,40 @@
-
-//Helloworld
-allprojects  {
+plugins { 
+     id "org.sonarqube" version "2.3" 
+   }   
+ sonarqube { 
+ properties { 
+         property "sonar.projectName", "Helloworld" 
+         property "sonar.projectKey", "Java:Helloworld" 
+         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec" 
+     } 
+ } 
+ 
+allprojects  {	
 	apply plugin: 'maven'
+	apply plugin: 'java'
+	apply plugin: 'jacoco'
 	group = "com.cts"
 	ext.snapshotVersion =System.getenv("SNAPSHOT")
 	ext.baseversionupdate=System.getenv("BUILD_NUM")
-	
 	ext.baseVersion = "0.1" + (snapshotVersion ? "" : "$baseversionupdate" )
-	// println ( snapshotVersion ? "-SNAPSHOT":"" )
-	
 	version = "$baseVersion" + (snapshotVersion ? "-SNAPSHOT" : "")  
-	
-}
-
+	 }
 subprojects {
-  apply plugin: 'java'
-  apply plugin: 'jacoco'
-  sourceCompatibility = 1.7
-  targetCompatibility = 1.7
-
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
   test {
 	ignoreFailures = true
 	exclude '**/*IT*'
-}
+	}
   repositories {
-      
-    maven { url "http://54.89.170.23:8081/nexus/content/repositories/central/" }
-  }
-jacocoTestReport { 
+    maven { url "http://54.89.170.23:8081/nexus/content/repositories/central" }
+	 maven { url "https://repox.sonarsource.com/sonarsource" }
+	}  
+  jacocoTestReport { 
      reports { 
 		 xml.enabled true 
          html.enabled false  
 		 }    
 		}
 }
+		
