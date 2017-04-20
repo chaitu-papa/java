@@ -16,7 +16,8 @@ node {
       // Run the gradle sonar
       if (isUnix()) {
          sh 'chmod +x gradlew'
-         echo "sh ./gradlew sonarqube -Dsonar.host.url=$env.SONAR_URL -Dsonar.login=4d7d73433f97f2eb8187b6e0e7842065f7d02e1b"
+		 withCredentials([string(credentialsId: 'sonar-token', variable: 'Sonar_token')]) {
+		 "sh ./gradlew sonarqube --d -Dsonar.host.url=$env.SONAR_URL -Dsonar.login=$Sonar_token -info " }        
       } else {
          bat(/"gradlew.bat" clean build jacocoTestReport/)
       }
