@@ -16,7 +16,7 @@ node {
       // Run the gradle sonar
       if (isUnix()) {
          sh 'chmod +x gradlew'
-         echo "./gradlew sonar"
+         echo "sh ./gradlew sonarqube -Dsonar.host.url=$env.SONAR_URL -Dsonar.login=4d7d73433f97f2eb8187b6e0e7842065f7d02e1b"
       } else {
          bat(/"gradlew.bat" clean build jacocoTestReport/)
       }
@@ -24,7 +24,7 @@ node {
     stage('snapshot-publish') {
       // Run the gradle upload
       if (isUnix()) {
-        env.SNAPSHOT=""
+        env.SNAPSHOT="SNAPSHOT"
         env.BUILD_NUM="$env.BUILD_NUMBER"
         
         sh 'chmod +x gradlew'
