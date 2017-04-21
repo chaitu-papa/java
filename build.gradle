@@ -1,23 +1,40 @@
-apply plugin: 'java'
-apply plugin: 'maven'
-
-group = 'com.codingpractice'
-version = '1.0-SNAPSHOT'
-
-description = "Java-Project"
-
-sourceCompatibility = 1.5
-targetCompatibility = 1.5
-tasks.withType(JavaCompile) {
-	options.encoding = 'UTF-8'
+plugins { 
+     id "org.sonarqube" version "2.3" 
+   }   
+ sonarqube { 
+ properties { 
+         property "sonar.projectName", "Helloworld" 
+         property "sonar.projectKey", "Java:Helloworld" 
+         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec" 
+     } 
+ } 
+ 
+allprojects  {	
+	apply plugin: 'maven'
+	apply plugin: 'java'
+	apply plugin: 'jacoco'
+	group = "com.cts"
+	ext.snapshotVersion =System.getenv("SNAPSHOT")
+	ext.baseversionupdate=System.getenv("BUILD_NUM")
+	ext.baseVersion = "0.1" + (snapshotVersion ? "" : "$baseversionupdate" )
+	version = "$baseVersion" + (snapshotVersion ? "-SNAPSHOT" : "")  
+	 }
+subprojects {
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+  test {
+	ignoreFailures = true
+	exclude '**/*IT*'
+	}
+  repositories {
+    maven { url "http://54.175.92.214:8081/nexus/content/repositories/central" }
+	 // maven { url "https://repox.sonarsource.com/sonarsource" }
+	}  
+  jacocoTestReport { 
+     reports { 
+		 xml.enabled true 
+         html.enabled false  
+		 }    
+		}
 }
-
-
-
-repositories {
-        
-     maven { url "http://54.89.170.23:8081/nexus/content/repositories/central/" }
-}
-dependencies {
-    testCompile group: 'junit', name: 'junit', version:'3.8.1'
-}
+	/// For update 	
