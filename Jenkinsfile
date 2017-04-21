@@ -12,14 +12,13 @@ node {
          bat(/"gradlew.bat" clean build jacocoTestReport/)
       }
    }
-    stage('code-analysis') {
+     stage('code-analysis') {
       // Run the gradle sonar
       if (isUnix()) {
-         sh 'chmod +x gradlew'
-		 withCredentials([string(credentialsId: 'sonar-token', variable: 'Sonar_token')]) {
-		 "sh ./gradlew sonarqube -Dsonar.host.url=$env.SONAR_URL -Dsonar.login=$Sonar_token --info " }        
-      } else {
-         bat(/"gradlew.bat" clean build jacocoTestReport/)
+          withCredentials([string(credentialsId: 'sonar-token', variable: 'Sonar_token')]) {
+        sh "./gradlew sonarqube -Dsonar.host.url=$env.SONAR_URL -Dsonar.login=$Sonar_token --info" }
+       } else { 
+         bat(/"gradlew.bat" sonarqube -Dsonar.host.url=$env.SONAR_URL -Dsonar.login=$Sonar_token --info/)
       }
    }
     stage('snapshot-publish') {
@@ -35,7 +34,7 @@ node {
       }
    }
     stage('dev-deploy') {
-      // Run the 
+      // Run the Dev deployment 
       parallel (
         tech_approval: { input 'tech lead: can this proceed?' },
         failFast: true
@@ -48,11 +47,11 @@ node {
         sh 'ssh -o StrictHostKeyChecking=no ec2-user@52.73.109.102 -i $Secret "sudo chef-client -o recipe[example::docker-run]"' }
           
       } else {
-         bat(/"gradlew.bat" clean build jacocoTestReport/)
+         //bat(//)
       }
    }
 	stage('qa-deploy') {
-      // Run the 
+      //  Run the QA deployment 
       parallel (
         qa_approval: { input 'qa lead: can this proceed?' },
         failFast: true
@@ -65,7 +64,7 @@ node {
         sh 'ssh -o StrictHostKeyChecking=no ec2-user@52.73.109.102 -i $Secret "sudo chef-client -o recipe[example::docker-run]"' }
           
       } else {
-         bat(/"gradlew.bat" clean build jacocoTestReport/)
+        // bat(//)
       }
    }
    }
