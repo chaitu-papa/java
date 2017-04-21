@@ -1,9 +1,9 @@
 
 node {
-    stage('Preparation') { 
+    stage('code-pull') { 
         checkout([$class: 'GitSCM', branches: [[name: "*/$env.BRANCH_NAME"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'c7e60db1-4689-46b7-92dc-1cd7ffcc3f16', url: 'git@github.com:chaitu-papa/java.git']]])
    }
-   stage('Build') {
+   stage('code-build') {
       // Run the gradle build
       if (isUnix()) {
          sh 'chmod +x gradlew'
@@ -21,7 +21,7 @@ node {
          bat(/"gradlew.bat" sonarqube -Dsonar.host.url=$env.SONAR_URL -Dsonar.login=$Sonar_token --info/)
       }
    }
-    stage('snapshot-publish') {
+    stage('code-snapshot-publish') {
       // Run the gradle upload
       if (isUnix()) {
         env.SNAPSHOT="SNAPSHOT"
@@ -33,7 +33,7 @@ node {
          bat(/"gradlew.bat" upload/)
       }
    }
-    stage('dev-deploy') {
+    stage('app-deploy(dev)') {
       // Run the Dev deployment 
       parallel (
         tech_approval: { input 'tech lead: can this proceed?' },
@@ -50,7 +50,7 @@ node {
          //bat(//)
       }
    }
-	stage('qa-deploy') {
+	stage('app-deploy(qa)') {
       //  Run the QA deployment 
       parallel (
         qa_approval: { input 'qa lead: can this proceed?' },
