@@ -18,9 +18,16 @@
             ip = request.getRemoteAddr();
         }
         %>
+<h2>
 <%
- out.print( "CLIENT-IPAddress:"+ip );
+ out.println( " CLIENT-IPAddress:"+ip );
 %>
+<%  String serverIP = request.getLocalAddr();
+%>
+<%
+ out.println( "<BR><BR><BR> SERVER-IPAddress:"+serverIP );
+%></h2>
 </body>
 </html>
+
 
