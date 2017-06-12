@@ -1,6 +1,6 @@
 <html>
 <body>
-<h2>Hello World3!</h2>
+<h2>Hello World!</h2>
 <%   String ip = request.getHeader("X-Forwarded-Host");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
@@ -18,7 +18,7 @@
             ip = request.getRemoteAddr();
         }
         %>
-<h2>
+<h3>
 <%
  out.println( " CLIENT-IPAddress:"+ip );
 %>
@@ -26,7 +26,7 @@
 %>
 <%
  out.println( "<BR><BR><BR> SERVER-IPAddress:"+serverIP );
-%></h2>
+%></h3>
 </body>
 </html>
 
