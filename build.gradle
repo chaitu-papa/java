@@ -27,7 +27,7 @@ subprojects {
 	exclude '**/*IT*'
 	}
   repositories {
-    maven { url "http://52.7.230.33:8081/nexus/content/repositories/central" }
+    maven { url "http://54.164.177.195:8081/nexus/content/repositories/central" }
 	 // maven { url "https://repox.sonarsource.com/sonarsource" }
 	}  
   jacocoTestReport { 
